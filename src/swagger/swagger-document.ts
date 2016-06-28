@@ -12,11 +12,13 @@ export class SwaggerDocument {
   public schemes: string[];
   public basePath: string;
   public paths: Path[];
+  public definitions: any;
 
   constructor() {
     this.swagger = "2.0";
     this.schemes = [];
     this.paths = [];
+    this.definitions = {};
   }
 
   toJSON() {
@@ -33,6 +35,8 @@ export class SwaggerDocument {
     this.paths.forEach(path => {
       obj.paths[path.url] = path;
     });
+
+    obj.definitions = this.definitions;
 
     return obj;
   }

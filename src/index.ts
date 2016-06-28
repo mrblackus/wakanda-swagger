@@ -3,6 +3,8 @@ import {SwaggerDocument} from './swagger/swagger-document';
 import {renderToString} from './swagger/renderer';
 import {catalogPath} from './paths/catalog';
 import {dataClassPaths} from './paths/dataclass';
+import {collectionDefinition} from './definitions/collection';
+import {entityDefinition} from './definitions/entity';
 
 const filePath = process.argv[2] || undefined;
 
@@ -27,10 +29,18 @@ getFileContent(filePath)
   })
   .then(({document, model}) => {
     document.paths.push(catalogPath);
-
     return {document, model};
   })
   //TODO - Create definitions (collection, entity) according to dataClass list
+  .then(({document, model}) => {
+
+    model.dataClasses.forEach(dataClass => {
+      document.definitions[dataClass.name + 'Entity'] = entityDefinition(dataClass);
+      document.definitions[dataClass.name + 'Collection'] = collectionDefinition(dataClass);
+    });
+
+    return {document, model};
+  })
   .then(({document, model}) => {
 
     model.dataClasses.forEach(dataClass => {
@@ -62,7 +72,7 @@ export interface IWakandaDataClass {
   scope: string;
   attributes: {
     name: string;
-    kind: 'storage'|'calculated'|'relatedEntity'|'relatedEntities';
+    kind: 'storage'|'calculated'|'relatedEntity'|'relatedEntities'|'alias';
     scope: string;
     type: string;
   }[];
