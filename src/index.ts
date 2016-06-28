@@ -2,6 +2,7 @@ import {getFileContent, writeInFile} from './helpers';
 import {SwaggerDocument} from './swagger/swagger-document';
 import {renderToString} from './swagger/renderer';
 import {catalogPath} from './paths/catalog';
+import {dataClassPaths} from './paths/dataclass';
 
 const filePath = process.argv[2] || undefined;
 
@@ -22,14 +23,23 @@ getFileContent(filePath)
     document.basePath = '/v1';
     document.schemes = ['http'];
 
-    return document;
+    return {document, model: modelObject};
   })
-  .then(document => {
+  .then(({document, model}) => {
     document.paths.push(catalogPath);
 
-    return document;
+    return {document, model};
   })
-  .then(document => {
+  //TODO - Create definitions (collection, entity) according to dataClass list
+  .then(({document, model}) => {
+
+    model.dataClasses.forEach(dataClass => {
+      document.paths.push(...dataClassPaths(dataClass));
+    })
+
+    return {document, model};
+  })
+  .then(({document}) => {
     const output = renderToString(document);
     console.log(output);
     return writeInFile('output.json', output);
@@ -41,25 +51,26 @@ getFileContent(filePath)
 export interface IWakandaModel {
   toJSON: boolean;
   extraProperties: any;
-  dataClasses: {
-    name: string;
-    className: string;
-    collectionName: string;
-    scope: string;
-    attributes: {
-      name: string;
-      kind: 'storage'|'calculated'|'relatedEntity'|'relatedEntities';
-      scope: string;
-      type: string;
-    }[];
-    methods: {
-      name: string;
-      applyTo: string;
-      scope: string;
-      from: string;
-      userDefined: boolean;
-    }[];
-
-  }[];
+  dataClasses: IWakandaDataClass[];
   type: any[];
 };
+
+export interface IWakandaDataClass {
+  name: string;
+  className: string;
+  collectionName: string;
+  scope: string;
+  attributes: {
+    name: string;
+    kind: 'storage'|'calculated'|'relatedEntity'|'relatedEntities';
+    scope: string;
+    type: string;
+  }[];
+  methods: {
+    name: string;
+    applyTo: string;
+    scope: string;
+    from: string;
+    userDefined: boolean;
+  }[];
+}
