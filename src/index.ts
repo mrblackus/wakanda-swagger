@@ -6,6 +6,7 @@ import {dataClassPaths} from './paths/dataclass';
 import {collectionDefinition} from './definitions/collection';
 import {entityDefinition} from './definitions/entity';
 import {entityPaths} from './paths/entity';
+import {collectionPaths} from './paths/collection';
 
 const filePath = process.argv[2] || undefined;
 
@@ -53,6 +54,7 @@ getFileContent(filePath)
       //Generate paths for dataClass, entity, etc operations
       document.paths.push(...dataClassPaths(dataClass));
       document.paths.push(...entityPaths(dataClass));
+      document.paths.push(...collectionPaths(dataClass));
     });
 
     return {document, model};
