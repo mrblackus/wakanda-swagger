@@ -43,11 +43,8 @@ export function collectionEndpoint(dataClass: IWakandaDataClass): Endpoint {
     id: '200',
     description: 'Successful response',
     schema: {
-      type: 'object'
+      '$ref': `#/definitions/${dataClass.name}Collection`
     }
-    // schema: {
-    //   '$ref': `#/definitions/collection/${dataClass.name}`
-    // }
   }));
 
   endpoint.tags.push(dataClass.name, 'DataClass');

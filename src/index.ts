@@ -31,7 +31,6 @@ getFileContent(filePath)
     document.paths.push(catalogPath);
     return {document, model};
   })
-  //TODO - Create definitions (collection, entity) according to dataClass list
   .then(({document, model}) => {
 
     model.dataClasses.forEach(dataClass => {

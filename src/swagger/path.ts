@@ -68,9 +68,10 @@ export class Parameter {
   public required: boolean;
   public type: string;
   public format: string;
+  public schema: any;
 
   constructor(obj = {}) {
-    const {name, in: paramIn, description, required, type, format}: any = obj;
+    const {name, in: paramIn, description, required, type, format, schema}: any = obj;
 
     this.name = name;
     this.in = paramIn;
@@ -78,6 +79,7 @@ export class Parameter {
     this.required = required;
     this.type = type;
     this.format = format;
+    this.schema = schema;
   }
 }
 
@@ -86,7 +88,7 @@ export class Response {
   public description: string;
   public schema: any;
 
-  constructor({id, description, schema}) {
+  constructor({id, description, schema}: any) {
     this.id = id;
     this.description = description;
     this.schema = schema;

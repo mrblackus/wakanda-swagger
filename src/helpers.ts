@@ -59,3 +59,21 @@ export function HTTPVerbToString(verb: HTTPVerb): string {
       throw new Error('Uknown HTTP verb');
   }
 }
+
+export function wakandaToSwaggerType(type: string): string {
+
+  switch(type) {
+    case 'long':
+    case 'number':
+    case 'short':
+      return 'number';
+    case 'string':
+    case 'date':
+      return 'string';
+    case 'bool':
+      return 'boolean';
+    default:
+      console.warn(`Unhandled Wakanda "${type}" type. Casted to object.`);
+      return 'object';
+  }
+}

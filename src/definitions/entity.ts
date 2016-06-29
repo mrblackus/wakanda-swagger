@@ -1,4 +1,5 @@
 import {IWakandaDataClass} from '../';
+import {wakandaToSwaggerType} from '../helpers';
 
 export function entityDefinition(dataClass: IWakandaDataClass): Object {
   const obj = {
@@ -39,22 +40,4 @@ export function entityDefinition(dataClass: IWakandaDataClass): Object {
   });
 
   return obj;
-}
-
-function wakandaToSwaggerType(type: string) {
-
-  switch(type) {
-    case 'long':
-    case 'number':
-    case 'short':
-      return 'number';
-    case 'string':
-    case 'date':
-      return 'string';
-    case 'bool':
-      return 'boolean';
-    default:
-      console.warn(`Unhandled Wakanda "${type}" type. Casted to object.`);
-      return 'object';
-  }
 }
