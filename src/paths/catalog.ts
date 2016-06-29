@@ -1,5 +1,6 @@
 import {Endpoint, Parameter, Path, Response} from '../swagger/path';
 import {HTTPVerb} from '../http-verb';
+import {TagName} from '../helpers';
 
 const endpoint = new Endpoint();
 endpoint.summary = 'Get the details for the given dataClasses';
@@ -10,7 +11,7 @@ endpoint.parameters.push(new Parameter({
   required: true,
   type: 'string'
 }));
-endpoint.tags.push('Catalog');
+endpoint.tags.push(TagName.Catalog);
 endpoint.responses.push(new Response({
   id: '200',
   description: 'Successful response',

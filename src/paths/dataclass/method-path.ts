@@ -1,6 +1,7 @@
 import {Endpoint, Parameter, Path, Response} from '../../swagger/path';
 import {HTTPVerb} from '../../http-verb';
 import {IWakandaDataClass, IWakandaMethod} from '../../';
+import {TagName} from '../../helpers';
 
 export function methodPath(method: IWakandaMethod, dataClass: IWakandaDataClass): Path {
   const methodPath = new Path(`/${dataClass.name}/_method/${method.name}`);
@@ -21,7 +22,7 @@ export function methodPath(method: IWakandaMethod, dataClass: IWakandaDataClass)
       type: 'object'
     }
   }));
-  methodEndpoint.tags.push(dataClass.name, 'DataClass Method');
+  methodEndpoint.tags.push(dataClass.name, TagName.DataClassMethod);
 
   methodPath.addEndpoint(HTTPVerb.POST, methodEndpoint);
 

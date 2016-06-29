@@ -77,3 +77,14 @@ export function wakandaToSwaggerType(type: string): string {
       return 'object';
   }
 }
+
+export class TagName {
+  public static DataClass         = 'DataClass';
+  public static Entity            = 'Entity';
+  public static Collection        = 'Collection';
+  public static DataClassMethod   = 'DataClass Method';
+  public static EntityMethod      = 'Entity Method';
+  public static CollectionMethod  = 'Collection Method';
+  public static Directory         = 'Directory';
+  public static Catalog           = 'Catalog';
+}

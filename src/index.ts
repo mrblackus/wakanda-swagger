@@ -1,4 +1,4 @@
-import {getFileContent, writeInFile} from './helpers';
+import {getFileContent, writeInFile, TagName} from './helpers';
 import {SwaggerDocument} from './swagger/swagger-document';
 import {renderToString} from './swagger/renderer';
 import {catalogPath} from './paths/catalog';
@@ -25,6 +25,16 @@ getFileContent(filePath)
     document.host = '127.0.0.1:8081';
     document.basePath = '/v1';
     document.schemes = ['http'];
+    document.tags.push(
+      TagName.DataClass,
+      TagName.Entity,
+      TagName.Collection,
+      TagName.DataClassMethod,
+      TagName.EntityMethod,
+      TagName.CollectionMethod,
+      TagName.Directory,
+      TagName.Catalog
+    );
 
     return {document, model: modelObject};
   })

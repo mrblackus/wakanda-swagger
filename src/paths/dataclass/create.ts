@@ -1,7 +1,7 @@
 import {IWakandaDataClass} from '../..';
 import {Endpoint, Parameter, Path, Response} from '../../swagger/path';
 import {HTTPVerb} from '../../http-verb';
-import {wakandaToSwaggerType} from '../../helpers';
+import {wakandaToSwaggerType, TagName} from '../../helpers';
 
 export function createEndpoint(dataClass: IWakandaDataClass): Endpoint {
 
@@ -24,7 +24,7 @@ export function createEndpoint(dataClass: IWakandaDataClass): Endpoint {
     }
   }));
 
-  endpoint.tags.push(dataClass.name, 'DataClass');
+  endpoint.tags.push(dataClass.name, TagName.DataClass);
 
   return endpoint;
 }
