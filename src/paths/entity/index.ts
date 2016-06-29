@@ -4,6 +4,7 @@ import {IWakandaDataClass} from '../../';
 import {getEndpoint} from './get';
 import {saveEndpoint} from './save';
 import {removeEndpoint} from './remove';
+import {methodPath} from './method-path';
 
 export function entityPaths(dataClass: IWakandaDataClass): Path[] {
   const paths: Path[] = [];
@@ -15,6 +16,12 @@ export function entityPaths(dataClass: IWakandaDataClass): Path[] {
   basicPath.addEndpoint(HTTPVerb.DELETE, removeEndpoint(dataClass));
 
   paths.push(basicPath);
+
+  dataClass.methods
+    .filter(x => x.applyTo === 'entity')
+    .forEach(method => {
+      paths.push(methodPath(method, dataClass));
+    });
 
   return paths;
 }

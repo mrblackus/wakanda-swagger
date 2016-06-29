@@ -74,11 +74,13 @@ export interface IWakandaDataClass {
     scope: string;
     type: string;
   }[];
-  methods: {
-    name: string;
-    applyTo: string;
-    scope: string;
-    from: string;
-    userDefined: boolean;
-  }[];
+  methods: IWakandaMethod[];
+}
+
+export interface IWakandaMethod {
+  name: string;
+  applyTo: string;
+  scope: string;
+  from: string;
+  userDefined: boolean;
 }
