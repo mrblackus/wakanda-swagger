@@ -7,6 +7,16 @@ export function entityDefinition(dataClass: IWakandaDataClass): Object {
     properties: {}
   };
 
+  obj.properties['__KEY'] = {
+    type: 'string',
+    description: 'Entity identifier'
+  };
+
+  obj.properties['__STAMP'] = {
+    type: 'number',
+    description: 'Entity stamp'
+  };
+
   dataClass.attributes.forEach(attribute => {
 
     let attributeSignature;
