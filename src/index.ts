@@ -5,6 +5,7 @@ import {catalogPath} from './paths/catalog';
 import {dataClassPaths} from './paths/dataclass';
 import {collectionDefinition} from './definitions/collection';
 import {entityDefinition} from './definitions/entity';
+import {entityPaths} from './paths/entity';
 
 const filePath = process.argv[2] || undefined;
 
@@ -34,17 +35,15 @@ getFileContent(filePath)
   .then(({document, model}) => {
 
     model.dataClasses.forEach(dataClass => {
+
+      //Add definition for both entity and collection of each DataClasses
       document.definitions[dataClass.name + 'Entity'] = entityDefinition(dataClass);
       document.definitions[dataClass.name + 'Collection'] = collectionDefinition(dataClass);
-    });
 
-    return {document, model};
-  })
-  .then(({document, model}) => {
-
-    model.dataClasses.forEach(dataClass => {
+      //Generate paths for dataClass, entity, etc operations
       document.paths.push(...dataClassPaths(dataClass));
-    })
+      document.paths.push(...entityPaths(dataClass));
+    });
 
     return {document, model};
   })
