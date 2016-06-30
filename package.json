@@ -5,7 +5,9 @@
   "main": "src/index.js",
   "scripts": {
     "watch": "tsc -w",
+    "build": "tsc",
     "example": "node ./build/ example/Model.waModel",
+    "start": "node ./build/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

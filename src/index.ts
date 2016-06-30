@@ -17,8 +17,8 @@ getFileContent(filePath)
     return JSON.parse(content) as IWakandaModel;
   })
   .then(modelObject => {
-    // console.log(modelObject);
 
+    //Adding all basic info on swagger document
     const document = new SwaggerDocument();
     document.info = {
       title: 'Wakanda REST API',
@@ -65,7 +65,6 @@ getFileContent(filePath)
   })
   .then(({document}) => {
     const output = renderToString(document);
-    console.log(output);
     return writeInFile('output.json', output);
   })
   .catch(e => {
