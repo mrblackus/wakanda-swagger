@@ -1,12 +1,13 @@
 import {getFileContent, writeInFile, TagName} from './helpers';
 import {SwaggerDocument} from './swagger/swagger-document';
 import {renderToString} from './swagger/renderer';
-import {catalogPath} from './paths/catalog';
+import {catalogPath, catalogDetailPath} from './paths/catalog';
 import {dataClassPaths} from './paths/dataclass';
-import {collectionDefinition} from './definitions/collection';
-import {entityDefinition} from './definitions/entity';
 import {entityPaths} from './paths/entity';
 import {collectionPaths} from './paths/collection';
+import {collectionDefinition} from './definitions/collection';
+import {entityDefinition} from './definitions/entity';
+import {catalogDefinition, catalogDetailDefinition} from './definitions/catalog';
 
 const filePath = process.argv[2] || undefined;
 
@@ -40,10 +41,11 @@ getFileContent(filePath)
     return {document, model: modelObject};
   })
   .then(({document, model}) => {
-    document.paths.push(catalogPath);
-    return {document, model};
-  })
-  .then(({document, model}) => {
+
+    document.definitions['Catalog'] = catalogDefinition;
+    document.definitions['CatalogDetail'] = catalogDetailDefinition;
+
+    document.paths.push(catalogPath, catalogDetailPath);
 
     model.dataClasses.forEach(dataClass => {
 

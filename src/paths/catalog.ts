@@ -2,26 +2,41 @@ import {Endpoint, Parameter, Path, Response} from '../swagger/path';
 import {HTTPVerb} from '../http-verb';
 import {TagName} from '../helpers';
 
-const endpoint = new Endpoint();
-endpoint.summary = 'Get the details for the given dataClasses';
-endpoint.parameters.push(new Parameter({
+const catalogDetailPath = new Path('/_catalog/{dataClasses}');
+const endpointCatalogDetail = new Endpoint();
+
+endpointCatalogDetail.summary = 'Get the details for the given dataClasses';
+endpointCatalogDetail.parameters.push(new Parameter({
   name: 'dataClasses',
   in: 'path',
   description: 'List of dataClasses to retrieve. `$all` to get all dataClasses',
   required: true,
   type: 'string'
 }));
-endpoint.tags.push(TagName.Catalog);
-endpoint.responses.push(new Response({
+endpointCatalogDetail.tags.push(TagName.Catalog);
+endpointCatalogDetail.responses.push(new Response({
   id: '200',
   description: 'Successful response',
   schema: {
-    type: 'object'
+    '$ref': '#/definitions/CatalogDetail'
   }
 }));
 
-const catalogPath = new Path('/_catalog/{dataClasses}');
+catalogDetailPath.addEndpoint(HTTPVerb.GET, endpointCatalogDetail);
 
-catalogPath.addEndpoint(HTTPVerb.GET, endpoint);
+const catalogPath = new Path('/_catalog');
+const endpointCatalog = new Endpoint();
 
-export {catalogPath};
+endpointCatalog.summary = 'Get the list of dataClasses on the data model.';
+endpointCatalog.tags.push(TagName.Catalog);
+endpointCatalog.responses.push(new Response({
+  id: '200',
+  description: 'Successful response',
+  schema: {
+    '$ref': '#/definitions/Catalog'
+  }
+}));
+
+catalogPath.addEndpoint(HTTPVerb.GET, endpointCatalog);
+
+export {catalogDetailPath, catalogPath};
