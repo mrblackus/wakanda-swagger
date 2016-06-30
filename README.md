@@ -6,6 +6,9 @@ format) to describe your API with Swagger specification.
 It will dynamically generate paths and endpoints according to your actual
 data model (dataClasses, their attributes and methods).
 
+**Please note:** wakanda-swagger generate a Swagger file for a **REST API
+proposal**, not the current Wakanda REST API.
+
 ## Build and run
 
 Clone the package then install dependencies and build
