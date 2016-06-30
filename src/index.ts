@@ -8,6 +8,7 @@ import {collectionPaths} from './paths/collection';
 import {collectionDefinition} from './definitions/collection';
 import {entityDefinition} from './definitions/entity';
 import {catalogDefinition, catalogDetailDefinition} from './definitions/catalog';
+import {loginPath, logoutPath, currentUserPath, currentUserBeglonsToPath} from './paths/directory';
 
 const filePath = process.argv[2] || undefined;
 
@@ -46,6 +47,7 @@ getFileContent(filePath)
     document.definitions['CatalogDetail'] = catalogDetailDefinition;
 
     document.paths.push(catalogPath, catalogDetailPath);
+    document.paths.push(loginPath, logoutPath, currentUserPath, currentUserBeglonsToPath);
 
     model.dataClasses.forEach(dataClass => {
 
