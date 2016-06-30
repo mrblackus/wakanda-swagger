@@ -19,7 +19,7 @@ export function entityDefinition(dataClass: IWakandaDataClass): Object {
 
   dataClass.attributes.forEach(attribute => {
 
-    let attributeSignature;
+    let attributeSignature: any;
 
     if (attribute.kind === 'storage' || attribute.kind === 'calculated' || attribute.kind === 'alias') {
       attributeSignature = {

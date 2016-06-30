@@ -6,7 +6,7 @@ import {deleteEndpoint} from './delete';
 import {methodPath} from './method-path';
 
 export function collectionPaths(dataClass: IWakandaDataClass): Path[] {
-  const paths = [];
+  const paths: Path[] = [];
 
   const basicPath = new Path(`/_collection/${dataClass.name}/{id}`);
 
